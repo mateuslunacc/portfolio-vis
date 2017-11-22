@@ -1,0 +1,37 @@
+{
+ "width": 800,
+ "height": 300,
+ "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
+ "title": "Frequência do açude acima da capacidade",
+ "data":{
+   "url": "https://api.insa.gov.br/reservatorios/12172/monitoramento",
+   "format": {
+     "type": "json",
+     "property": "volumes",
+     "parse": {
+      "DataInformacao": "utc:'%d/%m/%Y'"
+      }
+     }
+
+ },
+ "transform": [
+   {
+     "filter":{
+     "field": "VolumePercentual",
+     "range": [100, 150]
+     }
+   }
+ ],
+ "mark": "line",
+ "encoding": {
+   "x": { "timeUnit": "month", "field": "DataInformacao", "type": "ordinal", "axis": {"title": "Mês", "format": "%B"}
+   },
+   "y": {"field": "VolumePercentual", "type": "quantitative", "aggregate":"count", "axis": {"title": "Frequêcia"}
+   }
+ },
+ "config": {
+   "title": {
+       "fontSize": 30
+   }
+  }
+}
