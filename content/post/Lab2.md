@@ -30,7 +30,7 @@ draft: false
 
 <script type="text/javascript">
 
-function desenhaBarras(dados) {
+function desenhaPontos(dados) {
   var alturaSVG = 400, larguraSVG = 900;
   var margin = {top: 10, right: 20, bottom:30, left: 45}, 
       larguraVis = larguraSVG - margin.left - margin.right,
@@ -43,23 +43,13 @@ function desenhaBarras(dados) {
     .append('g') 
       .attr('transform', 'translate(' +  margin.left + ',' + margin.top + ')');
 
-  var x = d3.scaleBand()
-            .domain(dados.map((dado, indice) => dado.noventa_percentil))
-            .rangeRound([0, larguraVis])
-            .padding(0.05); 
+  var x = d3.scaleLinear()
+            .domain([d3.min(dados, (d) => d.noventa_percentil) - 1, d3.max(dados, (d) => d.noventa_percentil) + 1])
+            .rangeRound([0, larguraVis]);
 
   var y = d3.scaleLinear()
-            .domain([0, d3.max(dados, (d, i) => d.dez_percentil)])
+            .domain([d3.min(dados, (d) => d.dez_percentil) - 1, d3.max(dados, (d) => d.dez_percentil) + 1])
             .rangeRound([alturaVis, 0]);
-
-  // grafico.selectAll('g')
-  //         .data(dados)
-  //         .enter()
-  //           .append('rect')
-  //             .attr('x', d => x(d.noventa_percentil))
-  //             .attr('width', x.bandwidth())
-  //             .attr('y', d => y(d.dez_percentil))
-  //             .attr('height', (d) => alturaVis - y(d.dez_percentil));
 
   grafico.selectAll('g')
           .data(dados)
@@ -67,7 +57,14 @@ function desenhaBarras(dados) {
             .append('circle')
               .attr('cx', d => x(d.noventa_percentil))
               .attr('r', 10)
-              .attr('cy', d => y(d.dez_percentil));
+              .attr('cy', d => y(d.dez_percentil))
+              .style("fill", function(d) { // Periodo de chuva de acordo com https://pt.wikipedia.org/wiki/Campina_Grande#Clima
+                if(d.mes > 3 && d.mes < 8) {
+                  return "blue";
+                } else {
+                  return "yellow";
+                }
+              });;
 
   grafico.append("g")
           .attr("class", "x axis")
@@ -85,8 +82,7 @@ function desenhaBarras(dados) {
 }
 
 d3.json('../boqueirao-por-mes.json', function(dados) {
-  console.log("provavelmente acontece depois")
-  desenhaBarras(dados);
+  desenhaPontos(dados);
 });
 
 </script>
