@@ -1,4 +1,4 @@
-baseURL = "https://mateuslunacc.github.io/portfolio-vis/"
+baseURL = "https://mateuslunacc.github.io/portfolio-vis"
 languageCode = "en"
 title = "Hugo Blog"
 theme = "hugo-nuo"

@@ -4,16 +4,18 @@ date: 2017-11-10T14:42:39-03:00
 draft: false
 ---
 
-<h2> Volume do açude ao longo do tempo</h2>
+<h2>Análise de dados sobre o açude Epitácio Pessoa.</h2>
+
+<h3> Volume do açude ao longo do tempo</h3>
 <div id="vis" width=300></div>
 
-<h2>O volume morto</h2>
+<h3>O volume morto</h3>
 <div id="vis2" width=300></div>
 
-<h2>O volume dividido pelas estações do ano</h2>
+<h3>O volume dividido pelas estações do ano</h3>
 <div id="vis3" width=300></div>
 
-<h2>Quando o açude sangrou</h2>
+<h3>Quando o açude sangrou</h3>
 <div id="vis4" width=300></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vega/3.0.7/vega.js"></script>

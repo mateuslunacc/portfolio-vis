@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you likes to quote or reproduce.</copyright>
-    <lastBuildDate>Fri, 10 Nov 2017 14:42:39 -0300</lastBuildDate>
+    <lastBuildDate>Tue, 28 Nov 2017 08:59:01 -0300</lastBuildDate>
     
 	<atom:link href="https://mateuslunacc.github.io/portfolio-vis/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Lab2</title>
+      <link>https://mateuslunacc.github.io/portfolio-vis/post/lab2/</link>
+      <pubDate>Tue, 28 Nov 2017 08:59:01 -0300</pubDate>
+      
+      <guid>https://mateuslunacc.github.io/portfolio-vis/post/lab2/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Lab 1</title>
@@ -18,7 +27,7 @@
       <pubDate>Fri, 10 Nov 2017 14:42:39 -0300</pubDate>
       
       <guid>https://mateuslunacc.github.io/portfolio-vis/post/lab1/</guid>
-      <description> Volume do açude ao longo do tempo 
+      <description>Análise de dados sobre o açude Epitácio Pessoa.  Volume do açude ao longo do tempo 
 O volume morto 
 O volume dividido pelas estações do ano 
 Quando o açude sangrou 
