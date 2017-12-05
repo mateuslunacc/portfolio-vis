@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you likes to quote or reproduce.</copyright>
-    <lastBuildDate>Tue, 28 Nov 2017 08:59:01 -0300</lastBuildDate>
+    <lastBuildDate>Tue, 05 Dec 2017 08:55:15 -0300</lastBuildDate>
     
 	<atom:link href="https://mateuslunacc.github.io/portfolio-vis/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Lab 2 - Açude Velho</title>
+      <link>https://mateuslunacc.github.io/portfolio-vis/post/lab2-acudevelho/</link>
+      <pubDate>Tue, 05 Dec 2017 08:55:15 -0300</pubDate>
+      
+      <guid>https://mateuslunacc.github.io/portfolio-vis/post/lab2-acudevelho/</guid>
+      <description>1 - Observar os horários que as pessoas não motorizadas mais transitam no açude velho. 2 - Observar os horários que os veículos mais transitam no açude velho. 3 - Identificar o gênero de pessoa que mais utiliza a ciclovia. 4 - Visualizar a proporção de carros e motos.      chart circle:hover { fill: goldenrod; } .mychart text { font: 12px sans-serif; text-anchor: left; }  function somaPontos(dados, horario) { } function desenhaPontos(dados) { var alturaSVG = 400, larguraSVG = 2500; var margin = {top: 20, right: 50, bottom:50, left: 50}, larguraVis = larguraSVG - margin.</description>
+    </item>
     
     <item>
       <title>Lab 2</title>

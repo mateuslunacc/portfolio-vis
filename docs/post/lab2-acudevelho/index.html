@@ -5,10 +5,7 @@
   <meta charset="utf-8" />
 
   
-  <title>
-  Posts
-   | Visualização de Dados
-</title>
+  <title>Lab 2 - Açude Velho</title>
 
   
   
@@ -18,14 +15,14 @@
 
   
   <meta name="author" content="Mateus Luna" />
-  <meta name="description" content="" />
+  <meta name="description" content="1 - Observar os horários que as pessoas não motorizadas mais transitam no açude velho. 2 - Observar os horários que os veículos mais transitam no açude velho. 3 - Identificar o gênero de pessoa que mais utiliza a ciclovia. 4 - Visualizar a proporção de carros e motos.      chart circle:hover { fill: goldenrod; } .mychart text { font: 12px sans-serif; text-anchor: left; }  function somaPontos(dados, horario) { } function desenhaPontos(dados) { var alturaSVG = 400, larguraSVG = 2500; var margin = {top: 20, right: 50, bottom:50, left: 50}, larguraVis = larguraSVG - margin." />
 
   
   
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="@gohugoio" />
-    <meta name="twitter:title" content="Posts" />
-    <meta name="twitter:description" content="" />
+    <meta name="twitter:title" content="Lab 2 - Açude Velho" />
+    <meta name="twitter:description" content="1 - Observar os horários que as pessoas não motorizadas mais transitam no açude velho. 2 - Observar os horários que os veículos mais transitam no açude velho. 3 - Identificar o gênero de pessoa que mais utiliza a ciclovia. 4 - Visualizar a proporção de carros e motos.      chart circle:hover { fill: goldenrod; } .mychart text { font: 12px sans-serif; text-anchor: left; }  function somaPontos(dados, horario) { } function desenhaPontos(dados) { var alturaSVG = 400, larguraSVG = 2500; var margin = {top: 20, right: 50, bottom:50, left: 50}, larguraVis = larguraSVG - margin." />
     <meta name="twitter:image" content="https://mateuslunacc.github.io/img/avatar.jpg" />
   
 
@@ -35,7 +32,7 @@
 <meta name="generator" content="Hugo 0.30.2" />
 
 
-<link rel="canonical" href="https://mateuslunacc.github.io/portfolio-vis/post/" />
+<link rel="canonical" href="https://mateuslunacc.github.io/portfolio-vis/post/lab2-acudevelho/" />
 <link rel="alternative" href="https://mateuslunacc.github.io/portfolio-vis/index.xml" title="Hugo Blog" type="application/atom+xml" />
 
 
@@ -98,6 +95,10 @@
     
     <div class="suspension">
       <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+        <a title="Go to comments" class="to-comment" href="#disqus_thread"><span class="icon icon-comment"></span></a>
+        
       
     </div>
     
@@ -192,57 +193,131 @@
   </nav>
 </header>
 
-  <section class="main post-list">
-    <header class="list-header offscreen">
-      <h2 class="list-label">Posts List</h2>
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">Lab 2 - Açude Velho</h1>
+      <p class="post-meta">@Mateus Luna · Dec 5, 2017 · 2 min read</p>
     </header>
+    <article class="post-content"><script src="https://d3js.org/d3.v4.min.js"></script>
+<h4>
+1 - Observar os horários que as pessoas não motorizadas mais transitam no açude velho.
+2 - Observar os horários que os veículos mais transitam no açude velho.
+3 - Identificar o gênero de pessoa que mais utiliza a ciclovia.
+4 - Visualizar a proporção de carros e motos.
+</h4>
+<br>
+</div>
+<div class="row mychart" id="chart">
+</div>
+</div>
+
+<style>
+chart circle:hover {
+  fill: goldenrod;
+}
+
+.mychart text {
+  font: 12px sans-serif;
+  text-anchor: left;
+}
+</style>
+
+<script type="text/javascript">
+
+function somaPontos(dados, horario) {
+    
+}
+
+function desenhaPontos(dados) {
+  var alturaSVG = 400, larguraSVG = 2500;
+  var margin = {top: 20, right: 50, bottom:50, left: 50}, 
+      larguraVis = larguraSVG - margin.left - margin.right,
+      alturaVis = alturaSVG - margin.top - margin.bottom;
+
+  var grafico = d3.select('#chart')
+    .append('svg')
+      .attr('width', larguraVis + margin.left + margin.right)
+      .attr('height', alturaVis + margin.top + margin.bottom)
+    .append('g') 
+      .attr('transform', 'translate(' +  margin.left + ',' + margin.top + ')');
+
+  var x = d3.scaleBand()
+            .domain(dados.map((dado) => dado.horario_inicial))
+            .rangeRound([0, larguraVis])
+            .padding(1); // Configure essa escala com domain, range e padding
+
+  var y = d3.scaleLinear()
+            .domain([(d3.min(dados, (d) => d.total_ciclistas) + d3.min(dados, (d) => d.total_pedestres)), 
+                      d3.max(dados, (d) => d.total_ciclistas) + d3.max(dados, (d) => d.total_pedestres)])
+            .rangeRound([alturaVis, 0]);
+
+  grafico.selectAll('g')
+          .data(dados)
+          .enter()
+            .append('rect')
+              .attr('x', dado => x(dado.horario_inicial))
+              .attr('y', dado => y(dado.total_pedestres + dado.total_ciclistas))
+
+  grafico.selectAll('text')
+          .data(dados)
+          .enter()
+          .append("text")
+          .attr("x", dado => x(dado.horario_inicial))
+          .attr("y", dado => y(dado.total_pedestres + dado.total_ciclistas))
+          .text(dado => dado.total_pedestres + dado.total_ciclistas);
+
+  grafico.append("g")
+          .attr("class", "x axis")
+          .attr("transform", "translate(0," + alturaVis + ")")
+          .call(d3.axisBottom(x));
+
+  grafico.append('g')
+          .attr('transform', 'translate(0,0)')
+          .call(d3.axisLeft(y))
+
+  grafico.append("text")
+    .attr("transform", "translate(-40," + (alturaVis + margin.top)/2 + ") rotate(-90)")
+    .text("Não motorizados");
+
+  grafico.append("text")
+    .attr("transform", "translate(" + (larguraVis - margin.left)/2 + "," + (alturaVis + margin.bottom - 2) + ") rotate(0)")
+    .text("Horários");
+}
+
+d3.csv('../acude-velho.csv', function(dados) {
+  desenhaPontos(dados);
+});
+
+</script>
+</article>
+    <footer class="post-footer">
+      
+      <p class="post-copyright">
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you likes to quote or reproduce.
+      </p>
+    </footer>
+    
+      <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
     
     
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://mateuslunacc.github.io/portfolio-vis/post/lab2-acudevelho/" class="post-link">Lab 2 - Açude Velho</a></h3>
-    <p class="post-meta">@Mateus Luna · Dec 5, 2017 · 2 min read</p>
-  </header>
-  
-  <p class="post-summary">1 - Observar os horários que as pessoas não motorizadas mais transitam no açude velho. 2 - Observar os horários que os veículos mais transitam no açude velho. 3 - Identificar o gênero de pessoa que mais utiliza a ciclovia. 4 - Visualizar a proporção de carros e motos.      chart circle:hover { fill: goldenrod; } .mychart text { font: 12px sans-serif; text-anchor: left; }  function somaPontos(dados, horario) { } function desenhaPontos(dados) { var alturaSVG = 400, larguraSVG = 2500; var margin = {top: 20, right: 50, bottom:50, left: 50}, larguraVis = larguraSVG - margin.</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://mateuslunacc.github.io/portfolio-vis/post/lab2-acudevelho/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://mateuslunacc.github.io/portfolio-vis/post/lab2/" class="post-link">Lab 2</a></h3>
-    <p class="post-meta">@Mateus Luna · Nov 28, 2017 · 2 min read</p>
-  </header>
-  
-  <p class="post-summary">1. Pontos com a posição horizontal sendo o 90-percentil e a vertical 10-percentil, e a cor do ponto dizendo se é mês de período chuvoso ou não.      chart circle:hover { fill: goldenrod; } .mychart text { font: 12px sans-serif; text-anchor: left; }  function desenhaPontos(dados) { const mes_string= [&#34;Jan&#34;, &#34;Fev&#34;,&#34;Mar&#34;,&#34;Abr&#34;,&#34;Mai&#34;, &#34;Jun&#34;, &#34;Jul&#34;, &#34;Ago&#34;,&#34;Set&#34;,&#34;Out&#34;,&#34;Nov&#34;,&#34;Dez&#34;] var alturaSVG = 400, larguraSVG = 900; var margin = {top: 20, right: 50, bottom:50, left: 50}, larguraVis = larguraSVG - margin.</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://mateuslunacc.github.io/portfolio-vis/post/lab2/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://mateuslunacc.github.io/portfolio-vis/post/lab1/" class="post-link">Lab 1</a></h3>
-    <p class="post-meta">@Mateus Luna · Nov 10, 2017 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">Análise de dados sobre o açude Epitácio Pessoa.  Volume do açude ao longo do tempo 
-O volume morto 
-O volume dividido pelas estações do ano 
-Quando o açude sangrou 
-    const spec = &#34;../volume.json&#34;; const spec2 = &#34;../volumemorto.json&#34;; const spec3 = &#34;../estacoes.json&#34;; const spec4 = &#34;../sangrou.json&#34;; vegaEmbed(&#39;#vis&#39;, spec).catch(console.warn); vegaEmbed(&#39;#vis2&#39;, spec2).catch(console.warn); vegaEmbed(&#39;#vis3&#39;, spec3).catch(console.warn); vegaEmbed(&#39;#vis4&#39;, spec4).catch(console.warn);  </p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://mateuslunacc.github.io/portfolio-vis/post/lab1/">Read More →</a>
-  </footer>
-</article>
-
-      
     
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "disqus_shortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+      
     
   </section>
   <footer class="site-footer">
