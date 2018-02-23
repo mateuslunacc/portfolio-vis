@@ -8,6 +8,10 @@
   stroke-linejoin: round;
 }
 
+h3 {
+  font-family:"avenir next", Arial, sans-serif;
+}
+
 path:hover, path.highlighted {
   fill: tomato;
 }
@@ -26,6 +30,9 @@ div.tooltip {
 
 <svg width="1000" height="600"></svg>
 
+<h4>- Dá para localizar melhor as mudanças mais significativas usando uma escala divergente nas cores </h4>
+<h4>- Utilizando a ferramenta de zoom é mais fácil achar os municípios pequenos, ainda mais com a tooltip.</h4>
+<h4>- Na região do sertão parece ter uma melhora na maioria dos municípios, mas no litoral onde os números se manteram, em geral.</h4>
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
 <script src="https://d3js.org/topojson.v2.min.js"></script>
@@ -44,7 +51,7 @@ var color = d3.scaleThreshold()
       .range(d3.schemeRdBu[7]);
 
 // função aux definida em legenda-d3-cor.js
-desenhaLegenda(0, 81, color, "Crescimento entre 2011 e 2013 (pp*)")
+desenhaLegenda(0, 100, color, "Crescimento entre 2011 e 2013 (pp*)")
 
 d3.queue()
     .defer(d3.json, "geo4-municipios-e-aprendizado-simplificado.json")

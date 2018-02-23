@@ -20,7 +20,7 @@ var desenhaLegenda = function(min, max, escalaDeCor, nomeVariavel){
     .enter().append("rect")
       .attr("height", 8)
       .attr("x", d => x(d[0]))
-      .attr("width", function(d) { return x(d[1]) - x(d[0]); })
+      .attr("width", function(d) { return Math.abs(x(d[1]) - x(d[0])); })
       .attr("fill", function(d) { return escalaDeCor(d[0]); });
 
   g.append("text")
