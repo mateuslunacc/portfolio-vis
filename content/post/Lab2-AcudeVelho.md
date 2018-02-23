@@ -7,8 +7,11 @@ draft: false
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <h4>
 1 - Observar os horários que as pessoas não motorizadas mais transitam no açude velho.
+<br>
 2 - Observar os horários que os veículos mais transitam no açude velho.
+<br>
 3 - Identificar o gênero de pessoa que mais utiliza a ciclovia.
+<br>
 4 - Visualizar a proporção de carros e motos.
 </h4>
 <br>
@@ -30,10 +33,6 @@ chart circle:hover {
 
 <script type="text/javascript">
 
-function somaPontos(dados, horario) {
-	
-}
-
 function desenhaPontos(dados) {
   var alturaSVG = 400, larguraSVG = 2500;
   var margin = {top: 20, right: 50, bottom:50, left: 50}, 
@@ -48,7 +47,7 @@ function desenhaPontos(dados) {
       .attr('transform', 'translate(' +  margin.left + ',' + margin.top + ')');
 
   var x = d3.scaleBand()
-            .domain(dados.map((dado) => dado.horario_inicial))
+          .domain(dados.map((dado) => dado.horario_inicial))
 	        .rangeRound([0, larguraVis])
 	        .padding(1); // Configure essa escala com domain, range e padding
 
@@ -61,8 +60,10 @@ function desenhaPontos(dados) {
           .data(dados)
           .enter()
             .append('rect')
-              .attr('x', dado => x(dado.horario_inicial))
-              .attr('y', dado => y(dado.total_pedestres + dado.total_ciclistas))
+              .attr('x', (dado) => x(dado.horario_inicial))
+              .attr('width', x.bandwidth())
+              .attr('y', (dado) => y(dado.total_pedestres + dado.total_ciclistas))
+              .attr('height', (dado) => alturaVis - y(dado.total_pedestres + dado.total_ciclistas));
 
   grafico.selectAll('text')
           .data(dados)
