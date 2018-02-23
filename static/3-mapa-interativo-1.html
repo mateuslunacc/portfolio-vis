@@ -40,11 +40,11 @@ var path = d3.geoPath();
 
 // a escala de cores
 var color = d3.scaleThreshold()
-      .domain(d3.range(-20, 81, 20))
-      .range(d3.schemePRGn[6]);
+      .domain(d3.range(-30, 61, 15))
+      .range(d3.schemeRdBu[7]);
 
 // função aux definida em legenda-d3-cor.js
-desenhaLegenda(0, 81, color, "Aprendizado adequado (%)")
+desenhaLegenda(0, 81, color, "Crescimento entre 2011 e 2013 (pp*)")
 
 d3.queue()
     .defer(d3.json, "geo4-municipios-e-aprendizado-simplificado.json")
@@ -61,7 +61,7 @@ function ready(error, dados) {
     .data(cidades)
     .enter()
     .append("path")
-      .attr("fill", d => {valor = d.properties["Percentual Aprendizado Adequado (%)"]; return valor === "NA" ? '#e0e0eb' : color(valor)})
+      .attr("fill", d => {valor = d.properties["Crescimento entre 2011 e 2013 (pp*)"]; return valor === "NA" ? '#e0e0eb' : color(valor)})
       .attr("d", path)
       .on("mouseover",showTooltip)
       .on("mousemove",moveTooltip)
@@ -95,7 +95,7 @@ function showTooltip(d) {
   moveTooltip();
 
   tooltip.style("display","block")
-      .text(d.properties.Cidade + ": " + d.properties["Percentual Aprendizado Adequado (%)"] + "%");
+      .text(d.properties.Cidade + ": " + d.properties["Crescimento entre 2011 e 2013 (pp*)"] + "%");
 }
 
 //Move the tooltip to track the mouse
@@ -110,8 +110,3 @@ function hideTooltip() {
 }
 
 </script>
-
-<h3>- Podemos perceber melhor a variação de desempenho usando uma escala divergente nas cores.</h3>
-<h3>- Com a ferramenta de zoom podemos observar com facilidade os municípios pequenos, e ainda mais com tooltip.</h3>
-<h3>- Na região do sertão parece ter uma melhora na maioria dos municípios, mas no litoral onde os números se manteram ou diminuíram em geral.</h3>
-<h3>- Não é fácil perceber um padrão em relação aos municípios que tiveram grande diminuição, estes estão presentes em todo o estado</h3>
